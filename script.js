@@ -1,6 +1,6 @@
 const myLibrary = [];
 
-function Book(title,author,pages,read,id) {
+/*function Book(title,author,pages,read,id) {
     this.id = id
     this.title = title
     this.author = author
@@ -10,10 +10,31 @@ function Book(title,author,pages,read,id) {
     function info(){
         return title + " by " + author + "," + pages+"pages, " + (read?"read":"not read yet")
     }
+}*/
+
+class Book {
+    constructor(title,author,pages,read,id) {title,author,pages,read,id}
+
+    info(){
+        return title + " by " + author + "," + pages+"pages, " + (read?"read":"not read yet")
+    }
+
+    toggleReadStatus(){
+        if(this.read){
+            return false
+        }else{
+            return true
+        }
+    }
+
 }
+
+
 
 function addBookToLibrary(title,author,pages,read,id) {
     myLibrary.push(new Book(title,author,pages,read,id))
+    console.log(myLibrary)
+
 }
 
 // addBookToLibrary("test","test","test",true)
@@ -61,9 +82,25 @@ let addBookEntryToDisplay = (book) => {
     pages.textContent = "Pages: " + book.pages;
     read.textContent = "Read: " + (book.read?"Yes":"No");
 
-    deleteButton.textContent = "Delte Entry"
+    deleteButton.textContent = "Delete Entry"
     readStatusButton.textContent = "Change read status"
-    deleteButton.addEventListener("click", () => {bookEntry.remove()})
+    deleteButton.addEventListener("click", () => {
+        for(let i=myLibrary.length-1;i>=0;i--){
+            
+            //TODO: FIX BUG DELTETE BOOK FROM LIBRARY ARRAY AFTER REMOVING FROM DOM
+            console.log("i: " +i)
+            console.log("bookid:" +book.id)
+            console.log("mylibraby[i]:"+myLibrary[i].id)
+            console.log("library length:" +myLibrary.length)
+            if(myLibrary[i].id === book.id){
+                console.log("myLibrary")
+                myLibrary.splice(i,1)
+                console.log(myLibrary)
+                
+            }
+        }
+        bookEntry.remove()
+    })
     console.log("pre: " + book.read)
     readStatusButton.addEventListener("click", () => {
         book.read = book.toggleReadStatus()
@@ -78,13 +115,7 @@ let addBookEntryToDisplay = (book) => {
     bookEntry.appendChild(read)
 }
 
-Book.prototype.toggleReadStatus = function(){
-    if(this.read){
-        return false
-    }else{
-        return true
-    }
-}
+
 
 
     const addNewBookButton = document.querySelector("#add-new-book-btn");
@@ -102,8 +133,8 @@ Book.prototype.toggleReadStatus = function(){
         for (let value of formData.values()) {
             formDataArray.push(value)
         }
-        addBookToLibrary(formDataArray[0],formDataArray[1],formDataArray[2],formDataArray[3],myLibrary.length+1)    
-        addBookEntryToDisplay(new Book(formDataArray[0],formDataArray[1],formDataArray[2],formDataArray[3],myLibrary.length+1))
+        addBookToLibrary(formDataArray[0],formDataArray[1],formDataArray[2],formDataArray[3],myLibrary.length)    
+        addBookEntryToDisplay(new Book(formDataArray[0],formDataArray[1],formDataArray[2],formDataArray[3],myLibrary.length))
 
         dialog.close()
     }
