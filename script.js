@@ -13,7 +13,13 @@ const myLibrary = [];
 }*/
 
 class Book {
-    constructor(title,author,pages,read,id) {title,author,pages,read,id}
+    //constructor(title,author,pages,read,id) {title,author,pages,read,id}
+    constructor(title,author,pages,read,id){
+        this.title = title,
+        this.author = author,
+        this.pages = pages,
+        this.read = read,
+        this.id = id}
 
     info(){
         return title + " by " + author + "," + pages+"pages, " + (read?"read":"not read yet")
