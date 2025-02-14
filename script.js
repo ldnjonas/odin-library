@@ -122,13 +122,43 @@ let addBookEntryToDisplay = (book) => {
 }
 
 
+const title = document.querySelector("#title")
+const author = document.querySelector("#author")
+// const pages = document.querySelector("#pages")
+// const read = document.querySelector("#read")
+title.addEventListener("invalid", () => {
+    if(title.validity.valueMissing){
+        title.setCustomValidity("Please put in a title")
+    }else
+    {
+        title.setCustomValidity("")
+    }
+})
+author.addEventListener("invalid", () => {
+    if(author.validity.valueMissing){author.setCustomValidity("Please put in an author")
+    }else{
+        author.setCustomValidity("")
+    }
+})
+pages.addEventListener("invalid", () => {
+    if(pages.validity.valueMissing){pages.setCustomValidity("Please put in number of pages")}
+    else{
+        pages.setCustomValidity("")
+    }
+})
+read.addEventListener("invalid", () => {
+    if(read.validity.valueMissing){read.setCustomValidity("Please put wether you read the book or not")}
+    else{
+        read.setCustomValidity("")
+    }
+})
+
+
 
 
     const addNewBookButton = document.querySelector("#add-new-book-btn");
     addNewBookButton.addEventListener("click", () => {dialog.show()})
-
     const dialog = document.querySelector("#add-book-dialog");
-    
     const form = document.querySelector("#form")
     
     function handleSubmit(event){
@@ -147,4 +177,4 @@ let addBookEntryToDisplay = (book) => {
     
     form.addEventListener("submit", handleSubmit)
     
-
+ 
